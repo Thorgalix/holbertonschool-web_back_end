@@ -4,9 +4,10 @@
 This module provides a function that computes the sum of a list of
 floating-point numbers and returns the result as a float.
 """
+import typing
 
 
-def sum_list(input_list: list[float]) -> float:
+def sum_list(input_list: typing.List[float]) -> float:
     """Return the sum of a list of floats.
 
     Args:
