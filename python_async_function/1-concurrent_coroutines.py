@@ -2,12 +2,12 @@
 """Run multiple asynchronous wait coroutines concurrently."""
 
 import asyncio
-
+import typing
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> list[float]:
+async def wait_n(n: int, max_delay: int) -> typing.List[float]:
     """Spawn ``n`` wait coroutines and return sorted delays.
 
     Args:
