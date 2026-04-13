@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+concat = __import__('1-concat').concat
 
-add = __import__('0-add').add
+str1 = "egg"
+str2 = "shell"
 
-print(add(1.11, 2.22) == 1.11 + 2.22)
-print(add.__annotations__)
+print(concat(str1, str2) == "{}{}".format(str1, str2))
+print(concat.__annotations__)
