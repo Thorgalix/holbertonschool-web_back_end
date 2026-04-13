@@ -15,4 +15,4 @@ def floor(n: float) -> int:
     Returns:
         The greatest integer less than or equal to n.
     """
-    return int(n - n%1)
+    return int(n - n % 1)
