@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Simple pagination of a baby names dataset."""
+
 import csv
 import math
 from typing import List
@@ -6,7 +8,8 @@ from typing import List
 
 def index_range(page: int, page_size: int) -> tuple:
     """Return start and end indexes for items of a specific pagination page."""
-
+    assert isinstance(page, int) and page > 0
+    assert isinstance(page_size, int) and page_size > 0
     start = (page - 1) * page_size
     end = start + page_size
     return (start, end)
@@ -33,10 +36,11 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Return a page of the dataset."""
-        assert isinstance(page, int) and page > 0  # Validation
+        assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
-        data = self.dataset()                      # récupération des données
-        start, end = index_range(page, page_size)  # calcul des index
-
+        data = self.dataset()
+        start, end = index_range(page, page_size)
+        if start >= len(data):
+            return []
         return data[start:end]
