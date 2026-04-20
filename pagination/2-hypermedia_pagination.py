@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Hypermedia pagination utilities for the baby names dataset."""
+
 import csv
 import math
 from typing import List
@@ -6,7 +8,8 @@ from typing import List
 
 def index_range(page: int, page_size: int) -> tuple:
     """Return start and end indexes for items of a specific pagination page."""
-
+    assert type(page) is int and page > 0
+    assert type(page_size) is int and page_size > 0
     start = (page - 1) * page_size
     end = start + page_size
     return (start, end)
@@ -33,18 +36,19 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Return a page of the dataset."""
-        assert isinstance(page, int) and page > 0  # Validation
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
 
-        data = self.dataset()                      # récupération des données
-        start, end = index_range(page, page_size)  # calcul des index
-
+        data = self.dataset()
+        start, end = index_range(page, page_size)
+        if start >= len(data):
+            return []
         return data[start:end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """Return a dictionary with pagination metadata."""
-        assert isinstance(page, int) and page > 0  # Validation
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
 
         data = self.get_page(page, page_size)
 

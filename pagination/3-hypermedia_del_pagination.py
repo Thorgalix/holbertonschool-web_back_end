@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-"""
-Deletion-resilient hypermedia pagination
-"""
+"""Deletion-resilient hypermedia pagination."""
 
 import csv
-import math
 from typing import List, Dict
 
 
@@ -40,42 +37,25 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """Return a deletion-resilient page and pagination metadata."""
         dataset = self.indexed_dataset()
         if index is None:
             index = 0
 
-        assert isinstance(index, int)
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(index) is int and 0 <= index < len(self.dataset())
+        assert type(page_size) is int and page_size > 0
 
-        sorted_keys = sorted(dataset.keys())
+        data = []
+        next_index = index
 
-        start_index = None
-        for key in sorted_keys:
-            if key >= index:
-                start_index = key
-                break
+        while len(data) < page_size and next_index < len(self.dataset()):
+            if next_index in dataset:
+                data.append(dataset[next_index])
+            next_index += 1
 
-        if start_index is None:
-            return {
-                "index": index,
-                "next_index": None,
-                "page_size": 0,
-                "data": []
-            }
-
-        start = sorted_keys.index(start_index)
-        collected = []
-        i = start
-
-        while len(collected) < page_size and i < len(sorted_keys):
-            key = sorted_keys[i]
-            collected.append(dataset[key])
-            i += 1
-
-        next_index = sorted_keys[i] if i < len(sorted_keys) else None
         return {
-                "index": index,
-                "next_index": next_index,
-                "page_size": len(collected),
-                "data": collected
-                }
+            "index": index,
+            "next_index": next_index,
+            "page_size": len(data),
+            "data": data,
+        }
