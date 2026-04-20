@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+"""
+Deletion-resilient hypermedia pagination
+"""
+
+import csv
+import math
+from typing import List, Dict
+
+
+class Server:
+    """Server class to paginate a database of popular baby names.
+    """
+    DATA_FILE = "Popular_Baby_Names.csv"
+
+    def __init__(self):
+        self.__dataset = None
+        self.__indexed_dataset = None
+
+    def dataset(self) -> List[List]:
+        """Cached dataset
+        """
+        if self.__dataset is None:
+            with open(self.DATA_FILE) as f:
+                reader = csv.reader(f)
+                dataset = [row for row in reader]
+            self.__dataset = dataset[1:]
+
+        return self.__dataset
+
+    def indexed_dataset(self) -> Dict[int, List]:
+        """Dataset indexed by sorting position, starting at 0
+        """
+        if self.__indexed_dataset is None:
+            dataset = self.dataset()
+
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+            }
+        return self.__indexed_dataset
+
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        dataset = self.indexed_dataset()
+        if index is None:
+            index = 0
+
+        assert isinstance(index, int)
+        assert isinstance(page_size, int) and page_size > 0
+
+        sorted_keys = sorted(dataset.keys())
+
+        start_index = None
+        for key in sorted_keys:
+            if key >= index:
+                start_index = key
+                break
+
+        if start_index is None:
+            return {
+                "index": index,
+                "next_index": None,
+                "page_size": 0,
+                "data": []
+            }
+
+        start = sorted_keys.index(start_index)
+        collected = []
+        i = start
+
+        while len(collected) < page_size and i < len(sorted_keys):
+            key = sorted_keys[i]
+            collected.append(dataset[key])
+            i += 1
+
+        next_index = sorted_keys[i] if i < len(sorted_keys) else None
+        return {
+                "index": index,
+                "next_index": next_index,
+                "page_size": len(collected),
+                "data": collected
+                }
