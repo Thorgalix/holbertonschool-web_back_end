@@ -6,6 +6,8 @@
 
 
 def top_students(mongo_collection):
+    """Fonction retournant les scores moyens des étudiants
+    triés décroissant"""
     pipeline = [
         {
             "$addFields": {
