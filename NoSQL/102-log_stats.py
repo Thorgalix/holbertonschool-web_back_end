@@ -36,7 +36,7 @@ def main():
     ]
     ips = collection.aggregate(pipeline)
     for ip in ips:
-        print(f'\t{ip['_id']}: {ip['count']}')
+        print(f'\t{ip["_id"]}: {ip["count"]}')
 
 
 if __name__ == "__main__":
