@@ -1,0 +1,2 @@
+// Script pour lister les occurences avec name commençant par Holberton
+db.school.find({"name": {$regex: /^Holberton/}})
