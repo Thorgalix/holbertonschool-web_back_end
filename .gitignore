@@ -1,2 +1,7 @@
 __pycache__
 .venv
+*.sh
+*.json
+node_modules
+ES6_basic/babel.config.js
+ES6_basic/.eslintrc.js
