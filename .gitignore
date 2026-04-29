@@ -3,6 +3,8 @@ __pycache__
 *.sh
 *.json
 node_modules
-ES6_basic/babel.config.js
-ES6_basic/.eslintrc.js
+.eslintrc.js
 .editorconfig
+
+ES6_basic/babel.config.js
+ES6_classes/babel.config.js
