@@ -1,5 +1,11 @@
-import hasValuesFromArray from "./7-has_array_values.js";
+import updateUniqueItems from "./10-update_uniq_items.js";
+import groceriesList from "./9-groceries_list.js";
 
-console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [1]));
-console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [10]));
-console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [1, 10]));
+const map = groceriesList();
+console.log(map);
+
+updateUniqueItems(map)
+console.log(map);
+
+updateUniqueItems("hello")
+console.log(map)
