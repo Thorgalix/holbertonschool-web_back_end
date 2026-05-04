@@ -5,6 +5,7 @@ __pycache__
 node_modules
 .eslintrc.js
 .editorconfig
+test.js
 
 ES6_basic/babel.config.js
 ES6_classes/babel.config.js
