@@ -11,3 +11,6 @@ ES6_basic/babel.config.js
 ES6_classes/babel.config.js
 ES6_data_manipulation/babel.config.js
 test
+ES6_promise/babel.config.js
+ES6_promise/utils.js
+eslint.config.mjs
