@@ -20,7 +20,6 @@ function countStudents(path) {
     const fieldIndex = columns.indexOf('field');
 
     // Structure pour regrouper les étudiants par filière
-    // ex: { CS: { count: 0, names: [] }, SWE: { ... } }
     const studentsByField = {};
 
     // Compteur total d'étudiants valides
@@ -56,13 +55,13 @@ function countStudents(path) {
     // Afficher le nombre total d'étudiants
     console.log(`Number of students: ${totalStudents}`);
 
-    // Afficher les statistiques par filière (ordre alphabétique des clés pour stabilité)
+    // Afficher les statistiques par filière (ordre alphabétique)
     Object.keys(studentsByField).sort().forEach((f) => {
       const { count, names } = studentsByField[f];
       console.log(`Number of students in ${f}: ${count}. List: ${names.join(', ')}`);
     });
   } catch (err) {
-    // Si la lecture du fichier échoue, lever l'erreur demandée
+    // Si la lecture du fichier échoue, lever l'erreur
     throw new Error('Cannot load the database');
   }
 }
