@@ -7,7 +7,4 @@ process.stdin.on('data', (data) => {
 
 process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
-  setTimeout(() => {
-    process.exit(0);
-  }, 100);
 });
