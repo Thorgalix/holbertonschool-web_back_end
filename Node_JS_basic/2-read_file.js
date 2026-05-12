@@ -36,7 +36,7 @@ function countStudents(path) {
 
       // Si une des valeurs est manquante, ignorer la ligne
       if (!firstname || !field) {
-        continue;
+        return;
       }
 
       // Incrémenter le compteur total
