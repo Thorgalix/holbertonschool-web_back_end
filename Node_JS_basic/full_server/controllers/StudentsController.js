@@ -1,4 +1,4 @@
-import realDatabase from '../utils.js';
+import realDatabase from '../utils';
 
 class StudentsController {
   static getAllStudents(request, response) {
